@@ -42,7 +42,7 @@ module internal Graph =
     let truncateSources (n: ReactiveNode) (len: int) =
         if len <= 0 then
             n.FirstSource <- ValueNone
-            n.RestSources |> ValueOption.iter (fun a -> a.Clear())
+            n.RestSources |> ValueOption.iter Rarr.clear
         else
             n.RestSources
             |> ValueOption.iter (fun a ->
@@ -223,7 +223,7 @@ module internal Graph =
                 source.Affected <- false
                 sweepDeadObservers source
 
-            sweepQueue.Clear()
+            Rarr.clear sweepQueue
 
     /// Unlink `node` from each of its sources at or after `fromIndex`.
     let unlinkSourcesTail (node: ReactiveNode) (fromIndex: int) =
@@ -233,6 +233,6 @@ module internal Graph =
     let dispose (node: ReactiveNode) =
         iterSourcesFrom node 0 (fun s -> removeObserver s node)
         node.FirstSource <- ValueNone
-        node.RestSources |> ValueOption.iter (fun a -> a.Clear())
+        node.RestSources |> ValueOption.iter Rarr.clear
         node.State <- NodeState.Clean
         node.Queued <- false

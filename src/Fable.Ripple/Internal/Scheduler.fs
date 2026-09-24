@@ -54,7 +54,7 @@ module internal Scheduler =
                 for j in i .. pending.Count - 1 do
                     pending.[j].Queued <- false
 
-                pending.Clear()
+                Rarr.clear pending
                 flushing <- false
                 Graph.releaseSweeps ()
 

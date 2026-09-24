@@ -103,7 +103,7 @@ module internal Scope =
             for i in 0 .. children.Count - 1 do
                 tearDown children.[i]
 
-            children.Clear()
+            Rarr.clear children
         )
 
         scope.Cleanups
@@ -111,7 +111,7 @@ module internal Scope =
             for i in 0 .. cleanups.Count - 1 do
                 cleanups.[i] ()
 
-            cleanups.Clear()
+            Rarr.clear cleanups
         )
 
         let nodes = scope.Nodes
@@ -144,7 +144,7 @@ module internal Scope =
             // DOM it captured) alive meanwhile. It can never run again.
             node.EffectFn <- ValueNone
 
-        nodes.Clear()
+        Rarr.clear nodes
 
     /// Tear a scope down. Idempotent; a disposed child stays in its parent's list
     /// until the next sweep, where `Disposed` is what marks it dead.
